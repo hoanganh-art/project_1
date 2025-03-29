@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus 2025 - Liên Hệ</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <style>
+        /* Kế thừa các biến và style cơ bản */
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00ff88;
+            --dark: #121212;
+            --light: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hạt nền */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+        }
+
+        /* Hero Section cho trang liên hệ */
+        .contact-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 5% 5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .contact-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .contact-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .contact-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .contact-hero-blob {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(80px);
+            opacity: 0.2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blob-animate 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes blob-animate {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 5rem 5%;
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .contact-info {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-info h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .info-content h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .info-content p, 
+        .info-content a {
+            opacity: 0.8;
+            color: var(--light);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .info-content a:hover {
+            color: var(--accent);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .social-link {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+            border-color: transparent;
+        }
+
+        /* Contact Form */
+        .contact-form {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .contact-form h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.2);
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+        }
+
+        /* Map Container */
+        .map-container {
+            margin-top: 3rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            height: 400px;
+        }
+
+        #contact-map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(46, 213, 115, 0.2);
+            border: 1px solid #2ed573;
+            color: #2ed573;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 5rem 5%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .team-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .team-image {
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .team-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .team-image img {
+            transform: scale(1.1);
+        }
+
+        .team-content {
+            padding: 1.5rem;
+        }
+
+        .team-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-position {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .team-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+
+        .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .team-social a {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-social a:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+
+        /* CTA Section */
+        .contact-cta {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 4rem;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cta-container p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-about p {
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0.7;
+        }
+
+        /* Hiệu ứng scroll */
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-info {
+                order: 2;
+            }
+            
+            .contact-form {
+                order: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .contact-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hiệu ứng hạt nền -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-atom"></i>
+            <span>Nexus</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trangchu.html">Trang chủ</a></li>
+                <li><a href="tinhnang.html">Tính năng</a></li>
+                <li><a href="giaiphap.html">Giải pháp</a></li>
+                <li><a href="giaca.html">Giá cả</a></li>
+                <li><a href="lienhe.html" class="active">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <button class="cta-button">Dùng thử miễn phí</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="contact-hero-content reveal">
+            <h1>Liên Hệ Với Chúng Tôi</h1>
+            <p>Chúng tôi luôn sẵn sàng lắng nghe và hỗ trợ bạn. Hãy liên hệ để được tư vấn giải pháp tốt nhất cho doanh nghiệp của bạn.</p>
+        </div>
+        <div class="contact-hero-blob"></div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <div class="contact-info reveal">
+                <h2>Thông Tin Liên Hệ</h2>
+                <p>Bạn có câu hỏi hoặc cần hỗ trợ? Hãy liên hệ với chúng tôi qua các thông tin dưới đây hoặc điền vào form liên hệ bên cạnh.</p>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Địa chỉ</h3>
+                        <p>Tòa nhà Nexus, Số 123 Đường Innovation, Quận 1, TP.HCM</p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Điện thoại</h3>
+                        <p><a href="tel:+842836578901">+84 38 7875 5205</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Email</h3>
+                        <p><a href="mailto:info@nexus2025.com">lethanhhoanganh4@gmail.com</a></p>
+                    </div>
+                </div>
+                
+                <div class="info-item">
+                    <div class="info-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="info-content">
+                        <h3>Giờ làm việc</h3>
+                        <p>Thứ 2 - Thứ 6: 8:00 - 17:00<br>Thứ 7: 8:00 - 12:00</p>
+                    </div>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            
+            <div class="contact-form reveal">
+                <h2>Gửi Tin Nhắn</h2>
+                <div class="success-message" id="success-message">
+                    <i class="fas fa-check-circle"></i> Cảm ơn bạn! Tin nhắn của bạn đã được gửi thành công. Chúng tôi sẽ liên hệ lại sớm nhất.
+                </div>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Họ và tên</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="tel" id="phone" name="phone">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="subject">Chủ đề</label>
+                        <select id="subject" name="subject" required>
+                            <option value="">Chọn chủ đề</option>
+                            <option value="support">Hỗ trợ kỹ thuật</option>
+                            <option value="sales">Tư vấn sản phẩm</option>
+                            <option value="partnership">Hợp tác kinh doanh</option>
+                            <option value="feedback">Phản hồi/Góp ý</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Nội dung</label>
+                        <textarea id="message" name="message" required></textarea>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Gửi tin nhắn</button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="map-container reveal">
+            <div id="contact-map"></div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="section-title reveal">
+            <h2>Đội Ngũ Của Chúng Tôi</h2>
+            <p>Gặp gỡ đội ngũ chuyên gia giàu kinh nghiệm luôn sẵn sàng hỗ trợ bạn</p>
+        </div>
+        <div class="team-grid">
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Nguyễn Văn A">
+                </div>
+                <div class="team-content">
+                    <h3>Nguyễn Văn A</h3>
+                    <div class="team-position">Giám đốc Công nghệ</div>
+                    <p>Chuyên gia với 10 năm kinh nghiệm trong lĩnh vực AI và phân tích dữ liệu.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Trần Thị B">
+                </div>
+                <div class="team-content">
+                    <h3>Trần Thị B</h3>
+                    <div class="team-position">Trưởng phòng Kinh doanh</div>
+                    <p>Chuyên gia tư vấn giải pháp doanh nghiệp với 8 năm kinh nghiệm.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="team-card reveal">
+                <div class="team-image">
+                    <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Lê Văn C">
+                </div>
+                <div class="team-content">
+                    <h3>Lê Văn C</h3>
+                    <div class="team-position">Trưởng phòng Hỗ trợ</div>
+                    <p>Luôn sẵn sàng hỗ trợ khách hàng 24/7 với các vấn đề kỹ thuật.</p>
+                    <div class="team-social">
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="contact-cta">
+        <div class="cta-container reveal">
+            <h2>Sẵn sàng bắt đầu hành trình chuyển đổi số?</h2>
+            <p>Liên hệ ngay với chúng tôi để được tư vấn giải pháp phù hợp nhất cho doanh nghiệp của bạn.</p>
+            <button class="cta-button">Đặt lịch tư vấn</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-atom"></i>
+                    <span>Nexus</span>
+                </div>
+                <p>Công nghệ tiên phong cho kỷ nguyên số 2025. Giải pháp toàn diện cho doanh nghiệp thông minh.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Liên kết</h3>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="solutions.html">Giải pháp</a></li>
+                    <li><a href="pricing.html">Giá cả</a></li>
+                    <li><a href="contact.html">Liên hệ</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Tài nguyên</h3>
+                <ul>
+                    <li><a href="#">Tài liệu</a></li>
+                    <li><a href="#">Hướng dẫn</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Trạng thái hệ thống</a></li>
+                    <li><a href="#">Hỗ trợ</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Nhận bản tin</h3>
+                <p>Đăng ký để nhận thông tin mới nhất về sản phẩm và ưu đãi đặc biệt.</p>
+                <input type="email" placeholder="Email của bạn">
+                <button class="cta-button">Đăng ký</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nexus Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Tạo hiệu ứng hạt nền
+        function createParticles(containerId, count) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation delay và duration ngẫu nhiên
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${10 + Math.random() * 20}s`;
+                
+                // Thêm vào container
+                container.appendChild(particle);
+            }
+        }
+
+        // Hiệu ứng scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+
+        // Khởi tạo bản đồ
+        function initMap() {
+            // Tọa độ công ty (ví dụ: Tòa nhà Bitexco, TP.HCM)
+            const companyLocation = [10.7717, 106.7040];
+            
+            // Tạo bản đồ
+            const map = L.map('contact-map').setView(companyLocation, 16);
+            
+            // Thêm tile layer (OpenStreetMap)
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            }).addTo(map);
+            
+            // Thêm marker
+            const marker = L.marker(companyLocation).addTo(map);
+            marker.bindPopup("<b>Nexus Technologies</b><br>Tòa nhà Nexus, Số 123 Đường Innovation").openPopup();
+            
+            // Thêm circle
+            L.circle(companyLocation, {
+                color: '#00ff88',
+                fillColor: '#00ff88',
+                fillOpacity: 0.2,
+                radius: 200
+            }).addTo(map);
+        }
+
+        // Xử lý form liên hệ
+        function setupContactForm() {
+            const form = document.getElementById('contactForm');
+            const successMessage = document.getElementById('success-message');
+            
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Ở đây bạn có thể thêm code để gửi form (AJAX, fetch API, etc.)
+                // Ví dụ mô phỏng gửi thành công:
+                
+                // Hiển thị thông báo thành công
+                successMessage.style.display = 'block';
+                
+                // Reset form
+                form.reset();
+                
+                // Ẩn thông báo sau 5 giây
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 5000);
+            });
+        }
+
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles('particles', 50);
+            initMap();
+            setupContactForm();
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Kiểm tra ngay khi tải trang
+        });
+    </script>
+</body>
+</html>

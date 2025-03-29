@@ -1,0 +1,1120 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus 2025 - Giải Pháp Doanh Nghiệp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Kế thừa các biến và style cơ bản */
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00ff88;
+            --dark: #121212;
+            --light: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hạt nền */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+        }
+
+        /* Hero Section cho trang giải pháp */
+        .solution-hero {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 5% 5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .solution-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .solution-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .solution-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .solution-hero-blob {
+            position: absolute;
+            width: 1000px;
+            height: 1000px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(80px);
+            opacity: 0.2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blob-animate 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes blob-animate {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+        }
+
+        /* Industry Solutions Section */
+        .industry-solutions {
+            padding: 5rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .section-title p {
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        .industry-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .industry-tab {
+            padding: 0.8rem 1.5rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .industry-tab i {
+            font-size: 1.2rem;
+        }
+
+        .industry-tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .industry-tab:hover:not(.active) {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .industry-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 3rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .industry-content.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .industry-text {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .industry-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .industry-text p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .solution-list {
+            margin-bottom: 2rem;
+        }
+
+        .solution-list li {
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .solution-list i {
+            color: var(--accent);
+        }
+
+        .industry-image {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .industry-visual {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            transition: transform 0.5s ease;
+        }
+
+        .industry-image:hover .industry-visual {
+            transform: scale(1.05) rotate(2deg);
+        }
+
+        .industry-badge {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        /* Solution Benefits */
+        .solution-benefits {
+            padding: 5rem 5%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .benefit-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .benefit-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .benefit-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .benefit-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .benefit-card p {
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Case Studies */
+        .case-studies {
+            padding: 5rem 5%;
+            position: relative;
+        }
+
+        .case-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .case-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .case-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .case-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .case-card:hover .case-image img {
+            transform: scale(1.1);
+        }
+
+        .case-content {
+            padding: 1.5rem;
+        }
+
+        .case-content h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .case-company {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            opacity: 0.8;
+        }
+
+        .case-company img {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+        }
+
+        .case-content p {
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .case-stats {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+
+        /* CTA Section */
+        .solution-cta {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 4rem;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cta-container p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-about p {
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0.7;
+        }
+
+        /* Hiệu ứng scroll */
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .industry-content.active {
+                grid-template-columns: 1fr;
+            }
+            
+            .industry-image {
+                margin-top: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .solution-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .industry-content {
+                padding: 2rem;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hiệu ứng hạt nền -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-atom"></i>
+            <span>Nexus</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trangchu.html">Trang chủ</a></li>
+                <li><a href="tinhnang.html">Tính năng</a></li>
+                <li><a href="giaiphap.html" class="active">Giải pháp</a></li>
+                <li><a href="giaca.html">Giá cả</a></li>
+                <li><a href="lienhe.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <button class="cta-button">Dùng thử miễn phí</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="solution-hero">
+        <div class="solution-hero-content reveal">
+            <h1>Giải Pháp Doanh Nghiệp 2025</h1>
+            <p>Các giải pháp công nghệ đột phá được thiết kế riêng cho từng ngành nghề, giúp doanh nghiệp của bạn dẫn đầu trong kỷ nguyên số</p>
+            <button class="cta-button">Tư vấn giải pháp</button>
+        </div>
+        <div class="solution-hero-blob"></div>
+    </section>
+
+    <!-- Industry Solutions Section -->
+    <section class="industry-solutions">
+        <div class="section-title reveal">
+            <h2>Giải Pháp Theo Ngành</h2>
+            <p>Khám phá các giải pháp được tối ưu hóa cho từng lĩnh vực kinh doanh cụ thể</p>
+        </div>
+
+        <div class="industry-tabs">
+            <div class="industry-tab active" data-industry="finance">
+                <i class="fas fa-coins"></i>
+                Tài chính - Ngân hàng
+            </div>
+            <div class="industry-tab" data-industry="healthcare">
+                <i class="fas fa-heartbeat"></i>
+                Y tế - Chăm sóc sức khỏe
+            </div>
+            <div class="industry-tab" data-industry="retail">
+                <i class="fas fa-shopping-cart"></i>
+                Bán lẻ - Thương mại
+            </div>
+            <div class="industry-tab" data-industry="education">
+                <i class="fas fa-graduation-cap"></i>
+                Giáo dục - Đào tạo
+            </div>
+        </div>
+
+        <div class="industry-content active" id="finance-content">
+            <div class="industry-text">
+                <h3>Giải Pháp Công Nghệ Tài Chính</h3>
+                <p>Cách mạng hóa ngành tài chính với các công nghệ tiên tiến nhất, giúp tối ưu hóa hoạt động và nâng cao trải nghiệm khách hàng.</p>
+                
+                <ul class="solution-list">
+                    <li><i class="fas fa-check-circle"></i> Hệ thống giao dịch tự động với AI</li>
+                    <li><i class="fas fa-check-circle"></i> Phân tích rủi ro thời gian thực</li>
+                    <li><i class="fas fa-check-circle"></i> Bảo mật giao dịch bằng blockchain</li>
+                    <li><i class="fas fa-check-circle"></i> Chatbot tư vấn tài chính thông minh</li>
+                </ul>
+                
+                <button class="cta-button">Tìm hiểu thêm</button>
+            </div>
+            <div class="industry-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/2634/2634026.png" alt="Finance Solution" class="industry-visual">
+                <div class="industry-badge">FinTech 2025</div>
+            </div>
+        </div>
+
+        <div class="industry-content" id="healthcare-content">
+            <div class="industry-text">
+                <h3>Giải Pháp Y Tế Thông Minh</h3>
+                <p>Công nghệ tiên tiến giúp cách mạng hóa ngành y tế, từ chẩn đoán đến điều trị và quản lý bệnh viện.</p>
+                
+                <ul class="solution-list">
+                    <li><i class="fas fa-check-circle"></i> Hỗ trợ chẩn đoán bằng AI</li>
+                    <li><i class="fas fa-check-circle"></i> Theo dõi bệnh nhân từ xa</li>
+                    <li><i class="fas fa-check-circle"></i> Quản lý hồ sơ điện tử thông minh</li>
+                    <li><i class="fas fa-check-circle"></i> Dự đoán dịch bệnh bằng dữ liệu lớn</li>
+                </ul>
+                
+                <button class="cta-button">Tìm hiểu thêm</button>
+            </div>
+            <div class="industry-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/2779/2779676.png" alt="Healthcare Solution" class="industry-visual">
+                <div class="industry-badge">HealthTech</div>
+            </div>
+        </div>
+
+        <div class="industry-content" id="retail-content">
+            <div class="industry-text">
+                <h3>Giải Pháp Bán Lẻ Thế Hệ Mới</h3>
+                <p>Tối ưu hóa trải nghiệm mua sắm và quản lý chuỗi cung ứng với các công nghệ tiên tiến nhất.</p>
+                
+                <ul class="solution-list">
+                    <li><i class="fas fa-check-circle"></i> Cửa hàng ảo với công nghệ AR/VR</li>
+                    <li><i class="fas fa-check-circle"></i> Hệ thống quản lý kho thông minh</li>
+                    <li><i class="fas fa-check-circle"></i> Phân tích hành vi khách hàng bằng AI</li>
+                    <li><i class="fas fa-check-circle"></i> Thanh toán không tiếp xúc tiên tiến</li>
+                </ul>
+                
+                <button class="cta-button">Tìm hiểu thêm</button>
+            </div>
+            <div class="industry-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/3663/3663343.png" alt="Retail Solution" class="industry-visual">
+                <div class="industry-badge">Retail 4.0</div>
+            </div>
+        </div>
+
+        <div class="industry-content" id="education-content">
+            <div class="industry-text">
+                <h3>Giải Pháp Giáo Dục Tương Lai</h3>
+                <p>Cách mạng hóa giáo dục với các công cụ học tập thông minh và hệ thống quản lý giáo dục tiên tiến.</p>
+                
+                <ul class="solution-list">
+                    <li><i class="fas fa-check-circle"></i> Lớp học ảo với công nghệ 3D</li>
+                    <li><i class="fas fa-check-circle"></i> Trợ lý AI hỗ trợ giảng dạy</li>
+                    <li><i class="fas fa-check-circle"></i> Hệ thống đánh giá năng lực thông minh</li>
+                    <li><i class="fas fa-check-circle"></i> Nội dung học tập cá nhân hóa</li>
+                </ul>
+                
+                <button class="cta-button">Tìm hiểu thêm</button>
+            </div>
+            <div class="industry-image">
+                <img src="https://cdn-icons-png.flaticon.com/512/3976/3976626.png" alt="Education Solution" class="industry-visual">
+                <div class="industry-badge">EdTech</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Benefits Section -->
+    <section class="solution-benefits">
+        <div class="section-title reveal">
+            <h2>Lợi Ích Vượt Trội</h2>
+            <p>Những giá trị thiết thực mà giải pháp của chúng tôi mang lại cho doanh nghiệp bạn</p>
+        </div>
+        <div class="benefits-grid">
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Tăng Hiệu Suất</h3>
+                <p>Tự động hóa quy trình giúp tăng hiệu suất làm việc lên đến 300%, giảm thiểu sai sót và lãng phí thời gian.</p>
+            </div>
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <h3>Tiết Kiệm Chi Phí</h3>
+                <p>Giảm đến 45% chi phí vận hành nhờ tối ưu hóa quy trình và tài nguyên với công nghệ AI tiên tiến.</p>
+            </div>
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-user-shield"></i>
+                </div>
+                <h3>Bảo Mật Tối Đa</h3>
+                <p>Hệ thống bảo mật đa lớp với công nghệ lượng tử, đảm bảo an toàn tuyệt đối cho dữ liệu doanh nghiệp.</p>
+            </div>
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h3>Đổi Mới Sáng Tạo</h3>
+                <p>Công nghệ tiên phong giúp doanh nghiệp luôn dẫn đầu trong việc đổi mới và cạnh tranh trên thị trường.</p>
+            </div>
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-expand"></i>
+                </div>
+                <h3>Khả Năng Mở Rộng</h3>
+                <p>Hệ thống có thể mở rộng dễ dàng theo nhu cầu phát triển của doanh nghiệp, từ nhỏ đến quy mô toàn cầu.</p>
+            </div>
+            <div class="benefit-card reveal">
+                <div class="benefit-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Hỗ Trợ 24/7</h3>
+                <p>Đội ngũ chuyên gia hỗ trợ không ngừng nghỉ, đảm bảo hệ thống hoạt động trơn tru mọi lúc, mọi nơi.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="case-studies">
+        <div class="section-title reveal">
+            <h2>Case Study Thành Công</h2>
+            <p>Những câu chuyện thành công từ khách hàng đã áp dụng giải pháp của chúng tôi</p>
+        </div>
+        <div class="case-grid">
+            <div class="case-card reveal">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Finance Case Study">
+                </div>
+                <div class="case-content">
+                    <h3>Tối Ưu Hóa Ngân Hàng Số</h3>
+                    <div class="case-company">
+                        <img src="https://logo.clearbit.com/vietcombank.com.vn" alt="Vietcombank">
+                        <span>Ngân hàng Vietcombank</span>
+                    </div>
+                    <p>Ứng dụng AI trong phân tích rủi ro tín dụng giúp giảm 60% tỷ lệ nợ xấu và tăng 35% hiệu quả xử lý hồ sơ.</p>
+                    <div class="case-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">60%</div>
+                            <div class="stat-label">Giảm nợ xấu</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">35%</div>
+                            <div class="stat-label">Tăng hiệu suất</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.8/5</div>
+                            <div class="stat-label">Đánh giá</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card reveal">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Healthcare Case Study">
+                </div>
+                <div class="case-content">
+                    <h3>Bệnh Viện Thông Minh</h3>
+                    <div class="case-company">
+                        <img src="https://logo.clearbit.com/vinmec.com" alt="Vinmec">
+                        <span>Hệ thống Vinmec</span>
+                    </div>
+                    <p>Triển khai hệ thống quản lý bệnh viện thông minh giúp giảm 50% thời gian chờ đợi và tăng 40% hiệu quả sử dụng giường bệnh.</p>
+                    <div class="case-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">50%</div>
+                            <div class="stat-label">Giảm thời gian chờ</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">40%</div>
+                            <div class="stat-label">Hiệu quả giường bệnh</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.9/5</div>
+                            <div class="stat-label">Đánh giá</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="case-card reveal">
+                <div class="case-image">
+                    <img src="https://images.unsplash.com/photo-1556740738-b6a63e27c4df?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="Retail Case Study">
+                </div>
+                <div class="case-content">
+                    <h3>Chuyển Đổi Số Bán Lẻ</h3>
+                    <div class="case-company">
+                        <img src="https://logo.clearbit.com/thegioididong.com" alt="Thegioididong">
+                        <span>Thế Giới Di Động</span>
+                    </div>
+                    <p>Áp dụng giải pháp quản lý chuỗi cung ứng thông minh giúp tối ưu 30% chi phí tồn kho và tăng 25% doanh thu.</p>
+                    <div class="case-stats">
+                        <div class="stat-item">
+                            <div class="stat-value">30%</div>
+                            <div class="stat-label">Giảm chi phí</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">25%</div>
+                            <div class="stat-label">Tăng doanh thu</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value">4.7/5</div>
+                            <div class="stat-label">Đánh giá</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="solution-cta">
+        <div class="cta-container reveal">
+            <h2>Sẵn sàng chuyển đổi số?</h2>
+            <p>Đăng ký ngay để được tư vấn giải pháp phù hợp nhất với nhu cầu doanh nghiệp của bạn.</p>
+            <button class="cta-button">Liên hệ chuyên gia</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-atom"></i>
+                    <span>Nexus</span>
+                </div>
+                <p>Công nghệ tiên phong cho kỷ nguyên số 2025. Giải pháp toàn diện cho doanh nghiệp thông minh.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Liên kết</h3>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="solutions.html">Giải pháp</a></li>
+                    <li><a href="#">Đội ngũ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Tài nguyên</h3>
+                <ul>
+                    <li><a href="#">Tài liệu</a></li>
+                    <li><a href="#">Hướng dẫn</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Trạng thái hệ thống</a></li>
+                    <li><a href="#">Hỗ trợ</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Nhận bản tin</h3>
+                <p>Đăng ký để nhận thông tin mới nhất về giải pháp và ưu đãi đặc biệt.</p>
+                <input type="email" placeholder="Email của bạn">
+                <button class="cta-button">Đăng ký</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nexus Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tạo hiệu ứng hạt nền
+        function createParticles(containerId, count) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation delay và duration ngẫu nhiên
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${10 + Math.random() * 20}s`;
+                
+                // Thêm vào container
+                container.appendChild(particle);
+            }
+        }
+
+        // Hiệu ứng scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+
+        // Chuyển tab ngành nghề
+        function setupIndustryTabs() {
+            const tabs = document.querySelectorAll('.industry-tab');
+            const contents = document.querySelectorAll('.industry-content');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // Xóa active khỏi tất cả các tab và content
+                    tabs.forEach(t => t.classList.remove('active'));
+                    contents.forEach(c => c.classList.remove('active'));
+                    
+                    // Thêm active vào tab được click
+                    tab.classList.add('active');
+                    
+                    // Hiển thị content tương ứng
+                    const industryId = tab.getAttribute('data-industry');
+                    document.getElementById(`${industryId}-content`).classList.add('active');
+                });
+            });
+        }
+
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles('particles', 50);
+            setupIndustryTabs();
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Kiểm tra ngay khi tải trang
+        });
+    </script>
+</body>
+</html>

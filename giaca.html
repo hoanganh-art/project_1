@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus 2025 - Bảng Giá</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Kế thừa các biến và style cơ bản */
+        :root {
+            --primary: #6a11cb;
+            --secondary: #2575fc;
+            --accent: #00ff88;
+            --dark: #121212;
+            --light: #ffffff;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--dark), #1a1a2e);
+            color: var(--light);
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng hạt nền */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+            }
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            background: var(--glass);
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 2rem;
+        }
+
+        nav ul {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+        }
+
+        /* Hero Section cho trang giá cả */
+        .pricing-hero {
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            padding: 10rem 5% 5rem;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .pricing-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            z-index: 2;
+        }
+
+        .pricing-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .pricing-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .pricing-hero-blob {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            filter: blur(80px);
+            opacity: 0.2;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation: blob-animate 20s infinite ease-in-out;
+            z-index: 1;
+        }
+
+        @keyframes blob-animate {
+            0%, 100% {
+                border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+                transform: translate(-50%, -50%) rotate(0deg) scale(1);
+            }
+            25% {
+                border-radius: 58% 42% 75% 25% / 76% 46% 54% 24%;
+            }
+            50% {
+                border-radius: 50% 50% 33% 67% / 55% 27% 73% 45%;
+                transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
+            }
+            75% {
+                border-radius: 33% 67% 58% 42% / 63% 68% 32% 37%;
+            }
+        }
+
+        /* Pricing Tabs */
+        .pricing-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 3rem;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 50px;
+            padding: 0.5rem;
+            max-width: 500px;
+            margin: 2rem auto 3rem;
+            border: 1px solid var(--glass-border);
+        }
+
+        .pricing-tab {
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            border-radius: 50px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .pricing-tab.active {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        /* Pricing Plans */
+        .pricing-plans {
+            padding: 5rem 5%;
+            position: relative;
+        }
+
+        .plans-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .plan-card {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .plan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow);
+            border-color: var(--accent);
+        }
+
+        .plan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
+        }
+
+        .plan-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .plan-card.popular {
+            border: 2px solid var(--accent);
+            position: relative;
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -15px;
+            right: 30px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            box-shadow: var(--shadow);
+        }
+
+        .plan-header {
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .plan-name {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .plan-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .plan-period {
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+
+        .plan-features {
+            margin-bottom: 2rem;
+        }
+
+        .plan-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .plan-feature i {
+            color: var(--accent);
+        }
+
+        .plan-button {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: block;
+        }
+
+        .primary-button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
+        }
+
+        .primary-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(106, 17, 203, 0.6);
+        }
+
+        .secondary-button {
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--glass-border);
+        }
+
+        .secondary-button:hover {
+            background: var(--glass);
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Comparison Table */
+        .comparison {
+            padding: 5rem 5%;
+            background: rgba(0, 0, 0, 0.3);
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+        }
+
+        .comparison-table th, 
+        .comparison-table td {
+            padding: 1.2rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .comparison-table th {
+            font-weight: 600;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .feature-name {
+            font-weight: 500;
+        }
+
+        .feature-value {
+            text-align: center;
+        }
+
+        .feature-value i {
+            font-size: 1.2rem;
+        }
+
+        .fa-check {
+            color: var(--accent);
+        }
+
+        .fa-times {
+            color: #ff4d4d;
+            opacity: 0.7;
+        }
+
+        /* FAQ Section */
+        .faq-section {
+            padding: 5rem 5%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--accent);
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 500px;
+        }
+
+        .faq-toggle {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-toggle {
+            transform: rotate(180deg);
+        }
+
+        /* CTA Section */
+        .pricing-cta {
+            padding: 8rem 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 4rem;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, var(--light), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .cta-container p {
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 4rem 5%;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .footer-about p {
+            opacity: 0.7;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--glass);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transform: translateY(-3px);
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            color: var(--light);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 5px;
+        }
+
+        .footer-newsletter input {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 50px;
+            color: white;
+            margin-bottom: 1rem;
+        }
+
+        .footer-newsletter input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            opacity: 0.7;
+        }
+
+        /* Hiệu ứng scroll */
+        .reveal {
+            position: relative;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 1s ease;
+        }
+
+        .reveal.active {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .plans-container {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                display: none;
+            }
+
+            .pricing-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .pricing-tabs {
+                flex-direction: column;
+                max-width: 300px;
+            }
+
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
+
+            .cta-container {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hiệu ứng hạt nền -->
+    <div class="particles" id="particles"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">
+            <i class="fas fa-atom"></i>
+            <span>Nexus</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="trangchu.html">Trang chủ</a></li>
+                <li><a href="tinhnang.html">Tính năng</a></li>
+                <li><a href="giaiphap.html">Giải pháp</a></li>
+                <li><a href="giaca.html" class="active">Giá cả</a></li>
+                <li><a href="lienhe.html">Liên hệ</a></li>
+            </ul>
+        </nav>
+        <button class="cta-button">Dùng thử miễn phí</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="pricing-hero">
+        <div class="pricing-hero-content reveal">
+            <h1>Lựa Chọn Gói Dịch Vụ Phù Hợp</h1>
+            <p>Các gói dịch vụ linh hoạt được thiết kế cho mọi quy mô doanh nghiệp, từ startup đến tập đoàn lớn</p>
+        </div>
+        <div class="pricing-hero-blob"></div>
+    </section>
+
+    <!-- Pricing Tabs -->
+    <div class="pricing-tabs reveal">
+        <div class="pricing-tab active" id="monthly-tab">Thanh toán hàng tháng</div>
+        <div class="pricing-tab" id="yearly-tab">Thanh toán hàng năm (Tiết kiệm 20%)</div>
+    </div>
+
+    <!-- Pricing Plans -->
+    <section class="pricing-plans">
+        <div class="plans-container">
+            <div class="plan-card reveal">
+                <div class="plan-header">
+                    <div class="plan-name">Cơ Bản</div>
+                    <div class="plan-price">$29</div>
+                    <div class="plan-period">mỗi tháng</div>
+                </div>
+                <div class="plan-features">
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>5 người dùng</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>10GB lưu trữ</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Các tính năng cơ bản</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Hỗ trợ qua email</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-times"></i>
+                        <span>Truy cập API</span>
+                    </div>
+                </div>
+                <button class="plan-button secondary-button">Bắt đầu ngay</button>
+            </div>
+
+            <div class="plan-card popular reveal">
+                <div class="popular-badge">Phổ biến nhất</div>
+                <div class="plan-header">
+                    <div class="plan-name">Doanh Nghiệp</div>
+                    <div class="plan-price">$99</div>
+                    <div class="plan-period">mỗi tháng</div>
+                </div>
+                <div class="plan-features">
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>20 người dùng</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>100GB lưu trữ</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Tất cả tính năng</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Hỗ trợ 24/7</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Truy cập API đầy đủ</span>
+                    </div>
+                </div>
+                <button class="plan-button primary-button">Chọn gói này</button>
+            </div>
+
+            <div class="plan-card reveal">
+                <div class="plan-header">
+                    <div class="plan-name">Cao Cấp</div>
+                    <div class="plan-price">$199</div>
+                    <div class="plan-period">mỗi tháng</div>
+                </div>
+                <div class="plan-features">
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Người dùng không giới hạn</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>1TB lưu trữ</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Tất cả tính năng + Premium</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Hỗ trợ ưu tiên 24/7</span>
+                    </div>
+                    <div class="plan-feature">
+                        <i class="fas fa-check"></i>
+                        <span>Tích hợp tùy chỉnh</span>
+                    </div>
+                </div>
+                <button class="plan-button secondary-button">Liên hệ báo giá</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Table -->
+    <section class="comparison">
+        <div class="section-title reveal">
+            <h2>So Sánh Các Gói Dịch Vụ</h2>
+            <p>Xem chi tiết các tính năng có trong từng gói dịch vụ của chúng tôi</p>
+        </div>
+        <div class="comparison-table reveal">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tính năng</th>
+                        <th>Cơ Bản</th>
+                        <th>Doanh Nghiệp</th>
+                        <th>Cao Cấp</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="feature-name">Số lượng người dùng</td>
+                        <td class="feature-value">5</td>
+                        <td class="feature-value">20</td>
+                        <td class="feature-value">Không giới hạn</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Dung lượng lưu trữ</td>
+                        <td class="feature-value">10GB</td>
+                        <td class="feature-value">100GB</td>
+                        <td class="feature-value">1TB</td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Tính năng AI</td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Bảo mật nâng cao</td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Hỗ trợ ưu tiên</td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Tích hợp API</td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Báo cáo tùy chỉnh</td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                    <tr>
+                        <td class="feature-name">Đào tạo riêng</td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-times"></i></td>
+                        <td class="feature-value"><i class="fas fa-check"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="section-title reveal">
+            <h2>Câu Hỏi Thường Gặp</h2>
+            <p>Tìm câu trả lời cho những thắc mắc phổ biến về dịch vụ của chúng tôi</p>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>Có thể nâng cấp hoặc hạ cấp gói dịch vụ không?</span>
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Có, bạn có thể nâng cấp hoặc hạ cấp gói dịch vụ bất kỳ lúc nào. Khi nâng cấp, bạn sẽ được tính phí chênh lệch cho thời gian còn lại của chu kỳ thanh toán hiện tại. Khi hạ cấp, tài khoản của bạn sẽ được điều chỉnh vào chu kỳ thanh toán tiếp theo.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>Có chính sách hoàn tiền không?</span>
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Chúng tôi cung cấp chính sách hoàn tiền trong vòng 14 ngày kể từ ngày đăng ký nếu bạn không hài lòng với dịch vụ. Đối với gói thanh toán hàng năm, bạn sẽ được hoàn lại tiền cho những tháng chưa sử dụng.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>Có thể thanh toán bằng những phương thức nào?</span>
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Chúng tôi chấp nhận thanh toán qua thẻ tín dụng (Visa, MasterCard, American Express), PayPal, chuyển khoản ngân hàng và một số ví điện tử phổ biến.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>Có gói dùng thử miễn phí không?</span>
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Có, chúng tôi cung cấp bản dùng thử miễn phí 14 ngày cho tất cả các gói dịch vụ. Bạn không cần cung cấp thông tin thẻ tín dụng để bắt đầu dùng thử.</p>
+            </div>
+        </div>
+
+        <div class="faq-item reveal">
+            <div class="faq-question">
+                <span>Có giới hạn về số lượng dữ liệu có thể xử lý không?</span>
+                <i class="fas fa-chevron-down faq-toggle"></i>
+            </div>
+            <div class="faq-answer">
+                <p>Các gói Cơ Bản và Doanh Nghiệp có giới hạn về dung lượng lưu trữ nhưng không giới hạn về lượng dữ liệu xử lý. Gói Cao Cấp cung cấp dung lượng lưu trữ lớn và có thể mở rộng thêm theo yêu cầu.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="pricing-cta">
+        <div class="cta-container reveal">
+            <h2>Chưa chắc chắn về gói phù hợp?</h2>
+            <p>Đội ngũ chuyên gia của chúng tôi sẵn sàng tư vấn để giúp bạn lựa chọn giải pháp tốt nhất cho nhu cầu của doanh nghiệp.</p>
+            <button class="cta-button">Liên hệ tư vấn</button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-about">
+                <div class="footer-logo">
+                    <i class="fas fa-atom"></i>
+                    <span>Nexus</span>
+                </div>
+                <p>Công nghệ tiên phong cho kỷ nguyên số 2025. Giải pháp toàn diện cho doanh nghiệp thông minh.</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
+            <div class="footer-links">
+                <h3>Liên kết</h3>
+                <ul>
+                    <li><a href="index.html">Trang chủ</a></li>
+                    <li><a href="features.html">Tính năng</a></li>
+                    <li><a href="solutions.html">Giải pháp</a></li>
+                    <li><a href="pricing.html">Giá cả</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-links">
+                <h3>Tài nguyên</h3>
+                <ul>
+                    <li><a href="#">Tài liệu</a></li>
+                    <li><a href="#">Hướng dẫn</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">Trạng thái hệ thống</a></li>
+                    <li><a href="#">Hỗ trợ</a></li>
+                </ul>
+            </div>
+            <div class="footer-newsletter">
+                <h3>Nhận bản tin</h3>
+                <p>Đăng ký để nhận thông tin mới nhất về sản phẩm và ưu đãi đặc biệt.</p>
+                <input type="email" placeholder="Email của bạn">
+                <button class="cta-button">Đăng ký</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Nexus Technologies. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tạo hiệu ứng hạt nền
+        function createParticles(containerId, count) {
+            const container = document.getElementById(containerId);
+            for (let i = 0; i < count; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Kích thước ngẫu nhiên
+                const size = Math.random() * 10 + 2;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Vị trí ngẫu nhiên
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100}%`;
+                
+                // Animation delay và duration ngẫu nhiên
+                particle.style.animationDelay = `${Math.random() * 15}s`;
+                particle.style.animationDuration = `${10 + Math.random() * 20}s`;
+                
+                // Thêm vào container
+                container.appendChild(particle);
+            }
+        }
+
+        // Hiệu ứng scroll
+        function revealOnScroll() {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                } else {
+                    reveals[i].classList.remove('active');
+                }
+            }
+        }
+
+        // Chuyển đổi giữa các tab giá cả
+        function setupPricingTabs() {
+            const monthlyTab = document.getElementById('monthly-tab');
+            const yearlyTab = document.getElementById('yearly-tab');
+            
+            monthlyTab.addEventListener('click', () => {
+                monthlyTab.classList.add('active');
+                yearlyTab.classList.remove('active');
+                updatePrices('monthly');
+            });
+            
+            yearlyTab.addEventListener('click', () => {
+                yearlyTab.classList.add('active');
+                monthlyTab.classList.remove('active');
+                updatePrices('yearly');
+            });
+        }
+
+        // Cập nhật giá khi chuyển tab
+        function updatePrices(period) {
+            const prices = document.querySelectorAll('.plan-price');
+            const periods = document.querySelectorAll('.plan-period');
+            
+            if (period === 'monthly') {
+                prices[0].textContent = '$29';
+                prices[1].textContent = '$99';
+                prices[2].textContent = '$199';
+                
+                periods.forEach(p => p.textContent = 'mỗi tháng');
+            } else {
+                prices[0].textContent = '$24';
+                prices[1].textContent = '$79';
+                prices[2].textContent = '$159';
+                
+                periods.forEach(p => p.textContent = 'mỗi năm (tiết kiệm 20%)');
+            }
+        }
+
+        // FAQ Accordion
+        function setupFAQ() {
+            const faqItems = document.querySelectorAll('.faq-item');
+            
+            faqItems.forEach(item => {
+                const question = item.querySelector('.faq-question');
+                
+                question.addEventListener('click', () => {
+                    // Đóng tất cả các item khác
+                    faqItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                    
+                    // Mở/đóng item hiện tại
+                    item.classList.toggle('active');
+                });
+            });
+        }
+
+        // Khởi tạo
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles('particles', 50);
+            setupPricingTabs();
+            setupFAQ();
+            
+            window.addEventListener('scroll', revealOnScroll);
+            revealOnScroll(); // Kiểm tra ngay khi tải trang
+        });
+    </script>
+</body>
+</html>
